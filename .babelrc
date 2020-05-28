@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    ["transform-builtin-classes", {
+      globals: ["HTMLElement"],
+      logIfPatched: true
+    }],
+    "transform-es2015-classes",
+    "transform-object-rest-spread"
+  ]
+}
+ 
