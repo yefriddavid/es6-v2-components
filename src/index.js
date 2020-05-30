@@ -1,5 +1,7 @@
 import setup_navbar from './components/navbar.js';
 import setup_stopwatch from './containers/itemcontrol.js';
+//import traze_dropdown from './containers/traze-dropdown.js';
+import '../styles/app.css'
 // import setup_footer from './components/footer.js';
 
 ((win, doc, log, si, ci, sto, loc) => {

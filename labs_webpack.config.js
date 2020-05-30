@@ -8,18 +8,38 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 
-const generalConfig = {
+
+module.exports = {
     mode: 'production',
+    output: {
+        path: path.resolve(__dirname, 'build'),
+        filename: '[name].bundle-[hash].js'
+        //filename: 'traze-web-components.bundle-[hash].js'
+    },
+    entry: {
+			//components: [
+			//],
+			app: './js/trazeComponents.js',
+			'traze-dropdown': './js/containers/traze-dropdown.js',
+			styles: [
+					'./styles/app.css'
+			]
+    }
+    /*{
+    	TrazeComponents:
+    	'./js/app.js',
+    	}*/
+    ,
     module: {
 			rules: [
-				{
-					test: /\.js$/,
+				//{
+					/*test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {
                     presets: ['es2015']
                 }
-						},
+						},*/
 					{
                 test: /\.(html)$/,
                 use: {
@@ -42,17 +62,16 @@ const generalConfig = {
 			//new HtmlWebpackPlugin(),
 			//new HtmlWebpackIncludeAssetsPlugin({ assets: ['a.js', 'b.css'], append: true })
 			//,
-			new HtmlWebpackPlugin({
+        new HtmlWebpackPlugin({
             title: 'Traze Application',
             filename: 'index.html',
-						template: 'index.html',
+            template: 'index.html',
 					//chunks: ['app','dropDown'],
-				//chunksSortMode: 'manual',
+						chunksSortMode: 'manual',
         }),
-			/*new MiniCssExtractPlugin({
+			new MiniCssExtractPlugin({
             filename: '[name].min.[hash:8].css',
-				}),*/
-
+        }),
 			//new CleanWebpackPlugin()
         /*new ManifestPlugin(),
     new MiniCssExtractPlugin({
@@ -62,7 +81,7 @@ const generalConfig = {
         //allChunks: true
         //}),
     ],
-	/*devServer: {
+    devServer: {
         contentBase: path.resolve(__dirname, '.'),
         hot: true
     },
@@ -70,41 +89,4 @@ const generalConfig = {
         colors: true
     },
     devtool: 'source-map'
-		*/
 };
-
-const appConfig = Object.assign({}, generalConfig, {
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle-[hash].js'
-        //filename: 'traze-web-components.bundle-[hash].js'
-    },
-    entry: {
-			//app: './src/trazeComponents.js',
-			'traze-dropdown': './src/containers/traze-dropdown.js',
-			styles: [
-					'./styles/app.css'
-			]
-    }
-    ,
-}
-)
-
-const indexConfig = Object.assign({}, generalConfig, {
-	entry: "./src/index.js",
-	output: {
-		path: path.resolve(__dirname, 'dist'),
-		filename: "index.js"
-	},
-});
-
-
-module.exports = [
-    appConfig, indexConfig,
-];
-
-
-    /*{
-    	TrazeComponents:
-    	'./js/app.js',
-    	}*/
