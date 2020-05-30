@@ -8,8 +8,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 
-const generalConfig = {
-    mode: 'production',
+const developmentConfig = {
+    mode: 'development',
     module: {
 			rules: [
 				{
@@ -72,8 +72,31 @@ const generalConfig = {
     devtool: 'source-map'
 		*/
 };
+const productionConfig = {
+    mode: 'production',
+    module: {
+			rules: [
+				{
+					test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015']
+                }
+						},
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            }
+        ]
+    },
+    plugins: [
 
-const appConfig = Object.assign({}, generalConfig, {
+    ],
+};
+
+//const appConfig = Object.assign({}, developmentConfig, {
+const appConfig = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle-[hash].js'
@@ -86,21 +109,22 @@ const appConfig = Object.assign({}, generalConfig, {
 					'./styles/app.css'
 			]
     }
-    ,
 }
-)
 
-const indexConfig = Object.assign({}, generalConfig, {
+//const indexConfig = Object.assign({}, developmentConfig, {
+const indexConfig = {
 	entry: "./src/index.js",
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: "index.js"
 	},
-});
+};
 
 
 module.exports = [
-    appConfig, indexConfig,
+	//{...productionConfig, ...appConfig}, { ...productionConfig, ...indexConfig}
+	//,
+	{ ...developmentConfig, ...appConfig}, {...developmentConfig, ...indexConfig}
 ];
 
 

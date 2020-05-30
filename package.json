@@ -1,9 +1,9 @@
 {
-  "name": "vanilla-js-es6-components",
+  "name": "dave-es6-components",
   "author": "Dave",
   "version": "1.0.0",
-  "description": "vanilla js es6 class component tesst",
-  "main": "index.js",
+  "description": "My custom components",
+  "main": "src/index.js",
   "files": [
     "dist/"
   ],
@@ -36,13 +36,13 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
+    "build:production": "webpack --mode production",
+    "build:development": "webpack --mode development",
     "serve:httpserver": "npm run watch & http-server -P https://es6-components-iamwillll.c9users.io/",
     "serve:webpack": "webpack-dev-server --open",
-    "serve": "cd build && http-server",
+    "serve": "cd dist && http-server",
     "watch": "webpack --watch"
   },
   "license": "MIT",
-  "dependencies": {
-  }
+  "dependencies": {}
 }

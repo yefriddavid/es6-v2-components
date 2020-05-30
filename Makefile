@@ -5,12 +5,27 @@ help:
 clean:
 	rm -rf dist
 
-buildApp: clean
-buildApp: ## Build
-	npm run build
-	ls -la build
-	$$EDITOR dist/index.html
+buildDevelopment: clean
+buildDevelopment: ## Build development
+	npm run build:development
 
-run:
+#$$EDITOR dist/index.html
+
+buildProduction: clean
+buildProduction: ## Build
+	npm run build:production
+
+run: kill buildDevelopment start
 run: ## Local Run
-	npm run serve
+	@echo "finish"
+
+start:
+start: ## Local Run
+	nohup cd dist && http-serve -o &
+
+#sensible-browser http://172.22.0.1:8080
+
+kill:
+kill:
+	pgrep node | xargs kill 2>/dev/null
+# npm link
